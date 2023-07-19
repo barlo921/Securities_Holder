@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: config-server
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        native:
+          searchLocations: classpath:~/Dropbox/JAVA/Securities Holder/services-configs/
+          clone-on-start: true
+          default-label: main
+
+server:
+  port: 8888
