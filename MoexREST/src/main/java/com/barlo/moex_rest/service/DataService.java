@@ -1,5 +1,7 @@
 package com.barlo.moex_rest.service;
 
+import com.barlo.moex_rest.exception.NoResultsException;
+import com.barlo.moex_rest.exception.SecurityNotFoundException;
 import com.barlo.moex_rest.model.Board;
 import com.barlo.moex_rest.model.MarketData;
 import com.barlo.moex_rest.model.Security;
@@ -17,10 +19,14 @@ import java.util.*;
 @NoArgsConstructor
 public class DataService {
 
-    public List<Security> mapSecuritiesToList(String securities) throws JSONException {
+    public List<Security> mapSecuritiesToList(String securities, String search) throws JSONException {
         JSONObject obj = new JSONObject(securities).getJSONObject("securities");
         JSONArray columns = obj.getJSONArray("columns");
         JSONArray data = obj.getJSONArray("data");
+
+        if (data.length() == 0) {
+            throw new NoResultsException("No results for search: " + search);
+        }
 
         Map<String, String> flatData = new HashMap<String, String>();
         List<Security> securityList = new ArrayList<Security>();
@@ -58,12 +64,16 @@ public class DataService {
         return securityList;
     }
 
-    public SecuritySpecification mapSecuritySpecification(String security) throws JSONException {
+    public SecuritySpecification mapSecuritySpecification(String security, String secid) throws JSONException {
 
         JSONArray descriptionData =
                 new JSONObject(security)
                         .getJSONObject("description")
                         .getJSONArray("data");
+
+        if (descriptionData.length() == 0) {
+            throw new SecurityNotFoundException("Can't find security with Sec ID: " + secid);
+        }
 
         Map<String, String> descriptionTitles = new HashMap<String, String>();
         Map<String, String> descriptionValues = new HashMap<String, String>();

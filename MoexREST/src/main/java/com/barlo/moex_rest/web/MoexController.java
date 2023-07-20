@@ -26,33 +26,37 @@ public class MoexController {
 
     @GetMapping("/find/{security}")
     public List<Security> findSecurities(@PathVariable("security") String security) throws JSONException {
+        log.info("Search for: {}", security);
         Mono<String> mono = moexService.find(security);
-        List<Security> securities = dataService.mapSecuritiesToList(mono.block());
-        log.info("Search for: {}. Get results: {}", security, securities);
+        List<Security> securities = dataService.mapSecuritiesToList(mono.block(), security);
+        log.info("Get results: {}", securities);
         return securities;
     }
 
     @GetMapping("/find/secId/{secid}")
     public SecuritySpecification findBySecId(@PathVariable("secid") String secid) throws JSONException {
+        log.info("Search for secid: {}.", secid);
         Mono<String> mono = moexService.findBySecId(secid);
-        SecuritySpecification securitySpecification = dataService.mapSecuritySpecification(mono.block());
-        log.info("Search for secid: {}. Get results: {}", secid, securitySpecification);
+        SecuritySpecification securitySpecification = dataService.mapSecuritySpecification(mono.block(), secid);
+        log.info("Get results: {}", securitySpecification);
         return securitySpecification;
     }
 
     @GetMapping("/find/marketData/secId/{secid}")
     public MarketData findMarketDataBySecId(@PathVariable("secid") String secid) throws JSONException {
+        log.info("Get market data for secid: {}", secid);
         SecuritySpecification securitySpecification = findBySecId(secid);
         Mono<String> stockPrice = moexService.findStockPrice(secid, securitySpecification.getBoards().get(0).getMarket(), securitySpecification.getBoards().get(0).getBoardId());
         MarketData marketData = dataService.flatMarketData(stockPrice.block());
-        log.info("Get market data for secid: {}. Results: {}", secid, marketData);
+        log.info("Results: {}", marketData);
         return marketData;
     }
 
     @GetMapping("/find/lastPrice/secId/{secid}")
     public double findLastPrice(@PathVariable("secid") String secid) throws JSONException {
+        log.info("Get last price for secid: {}", secid);
         MarketData marketData = findMarketDataBySecId(secid);
-        log.info("Get last price for secid: {}. Results: {}", secid, marketData.getLast());
+        log.info("Results: {}", marketData.getLast());
         return marketData.getLast();
     }
 
