@@ -12,6 +12,7 @@
 
         <module>config-server</module>
         <module>MoexREST</module>
+        <module>InvestmentPortfolio</module>
     </modules>
 
     <properties>
