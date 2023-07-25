@@ -1,15 +1,14 @@
 spring:
   application:
     name: config-server
-  profiles:
-    active: native
   cloud:
     config:
       server:
-        native:
-          searchLocations: classpath:~/Dropbox/JAVA/Securities Holder/services-configs/
+        git:
+          uri: https://github.com/barlo921/Securities_Holder.git
+          search-paths: 'services-configs/'
           clone-on-start: true
-          default-label: main
+          default-label: master
 
 server:
   port: 8888
