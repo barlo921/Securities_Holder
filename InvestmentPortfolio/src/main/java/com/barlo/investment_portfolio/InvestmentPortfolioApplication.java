@@ -1,4 +1,4 @@
-package com.barlo.invetment_portfolio;
+package com.barlo.investment_portfolio;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,6 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class InvestmentPortfolioApplication {
     public static void main(String[] args) {
-            SpringApplication.run(InvestmentPortfolioApplication.class, args);
+        SpringApplication.run(InvestmentPortfolioApplication.class, args);
         }
     }
