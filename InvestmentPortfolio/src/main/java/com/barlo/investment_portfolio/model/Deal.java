@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Data
 @Entity
@@ -28,11 +29,39 @@ public class Deal {
     )
     private Long id;
     private LocalDateTime dateTime;
-    private Integer price;
-    private Long quantity;
+    private float price;
+    private int quantity;
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Security.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "security_id", nullable = false)
     @JsonManagedReference
     private Security security;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Deal deal = (Deal) o;
+        return id.equals(deal.getId())
+                && dateTime.equals(deal.dateTime)
+                && price == deal.getPrice()
+                && quantity == deal.getQuantity()
+                && security.getId().equals(deal.getSecurity().getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, dateTime, price, quantity, security);
+    }
+
+    @Override
+    public String toString() {
+        return "Deal{" +
+                "id=" + id +
+                ", dateTime=" + dateTime +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                ", security id=" + security.getId() +
+                '}';
+    }
 }

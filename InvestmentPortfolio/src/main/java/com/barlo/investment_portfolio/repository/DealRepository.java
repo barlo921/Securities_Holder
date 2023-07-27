@@ -8,5 +8,4 @@ import java.util.Optional;
 
 public interface DealRepository extends JpaRepository<Deal, Long> {
     Optional<List<Deal>> findAllBySecurityId(Long id);
-    Optional<List<Deal>> findAllBySecurityName(String name);
 }

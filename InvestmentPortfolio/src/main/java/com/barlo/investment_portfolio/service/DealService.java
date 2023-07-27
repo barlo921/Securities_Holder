@@ -24,13 +24,7 @@ public class DealService {
 
     public Optional<List<Deal>> getAllForSecurityById(Long id) {
         Optional<List<Deal>> dealList = dealRepository.findAllBySecurityId(id);
-        log.info("Finding all with security id: {}. Results: {}", id, dealList);
-        return dealList;
-    }
-
-    public Optional<List<Deal>> getAllForSecurityByName(String name) {
-        Optional<List<Deal>> dealList = dealRepository.findAllBySecurityName(name);
-        log.info("Finding all with security name: {}. Results: {}", name, dealList);
+        log.info("Finding all deals with security id: {}. Results: {}", id, dealList);
         return dealList;
     }
 }

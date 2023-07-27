@@ -12,21 +12,20 @@ import java.util.Collections;
 
 @SpringBootTest
 @Sql(scripts = "classpath:db/populateH2.sql")
-class DealServiceTest extends AbstractTest{
+class PortfolioServiceTest extends AbstractTest {
 
     @Autowired
-    DealService dealService;
+    PortfolioService portfolioService;
 
     @Test
     @Transactional
-    void getAllDeals() {
-        Assertions.assertIterableEquals(dealService.getAll(), Collections.singletonList(deal));
+    void getAllPortfolios() {
+        Assertions.assertIterableEquals(portfolioService.getAll(), Collections.singletonList(portfolio));
     }
 
-
     @Test
     @Transactional
-    void getAllDealsForSecurityById() {
-        Assertions.assertIterableEquals(dealService.getAllForSecurityById(deal.getSecurity().getId()).orElseThrow(), Collections.singletonList(deal));
+    void getPortfolioById() {
+        Assertions.assertEquals(portfolioService.getById(portfolio.getId()), portfolio);
     }
 }
