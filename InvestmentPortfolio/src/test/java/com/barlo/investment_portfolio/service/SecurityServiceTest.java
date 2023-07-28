@@ -1,6 +1,7 @@
 package com.barlo.investment_portfolio.service;
 
 import com.barlo.investment_portfolio.AbstractTest;
+import com.barlo.investment_portfolio.exception.NotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ class SecurityServiceTest extends AbstractTest {
     @Test
     @Transactional
     void getAllSecuritiesForPortfolioNotFound() {
-        Assertions.assertThrows(NoSuchElementException.class, () -> {
+        Assertions.assertThrows(NotFoundException.class, () -> {
            securityService.getAllForPortfolio(3L);
         });
     }
@@ -48,7 +49,7 @@ class SecurityServiceTest extends AbstractTest {
     @Test
     @Transactional
     void getSecurityByNameForPortfolioNotFound() {
-        Assertions.assertThrows(NoSuchElementException.class, () -> {
+        Assertions.assertThrows(NotFoundException.class, () -> {
             securityService.getByNameForPortfolio(0L,"GTLR");
         });
     }

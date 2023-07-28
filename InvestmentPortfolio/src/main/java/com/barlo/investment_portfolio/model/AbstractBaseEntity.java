@@ -27,4 +27,8 @@ public abstract class AbstractBaseEntity {
     )
     protected Long id;
 
+    protected boolean isNew() {
+        return this.id == null;
+    }
+
 }

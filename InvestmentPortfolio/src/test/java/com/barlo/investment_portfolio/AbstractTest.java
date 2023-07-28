@@ -19,6 +19,9 @@ import java.util.List;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public abstract class AbstractTest {
 
+    protected static final Long USER_1 = 1L;
+    protected static final Long USER_2 = 2L;
+    protected static final Long USER_3 = 3L;
     protected Deal deal_1;
     protected Deal deal_2;
     protected Security security_1;
@@ -60,7 +63,7 @@ public abstract class AbstractTest {
         portfolio_1 = Portfolio
                 .builder()
                 .id(1L)
-                .userId(1L)
+                .userId(USER_1)
                 .securities(Collections.singletonList(security_1))
                 .build();
 
@@ -79,7 +82,7 @@ public abstract class AbstractTest {
         portfolio_2 = Portfolio
                 .builder()
                 .id(2L)
-                .userId(2L)
+                .userId(USER_2)
                 .securities(Collections.singletonList(security_2))
                 .build();
 
