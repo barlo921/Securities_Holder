@@ -8,7 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
+import java.util.Arrays;
+import java.util.NoSuchElementException;
 
 @SpringBootTest
 @Sql(scripts = "classpath:db/populateH2.sql")
@@ -20,13 +21,33 @@ class DealServiceTest extends AbstractTest{
     @Test
     @Transactional
     void getAllDeals() {
-        Assertions.assertIterableEquals(dealService.getAll(), Collections.singletonList(deal));
+        Assertions.assertIterableEquals(dealService.getAll(), Arrays.asList(deal_1, deal_2));
+    }
+
+    @Test
+    void getById() {
+        Assertions.assertEquals(dealService.getById(5L), deal_1);
+    }
+
+    @Test
+    void getByIdNoSuchElement() {
+        Assertions.assertThrows(NoSuchElementException.class, () -> {
+            dealService.getById(8L);
+        });
     }
 
 
     @Test
     @Transactional
     void getAllDealsForSecurityById() {
-        Assertions.assertIterableEquals(dealService.getAllForSecurityById(deal.getSecurity().getId()).orElseThrow(), Collections.singletonList(deal));
+        Assertions.assertIterableEquals(dealService.getAllForSecurityById(deal_1.getSecurity().getId()), Arrays.asList(deal_1, deal_2));
+    }
+
+    @Test
+    @Transactional
+    void getAllDealsForSecurityByIdNotFound() {
+        Assertions.assertThrows(NoSuchElementException.class, () -> {
+            dealService.getAllForSecurityById(security_2.getId());
+        });
     }
 }

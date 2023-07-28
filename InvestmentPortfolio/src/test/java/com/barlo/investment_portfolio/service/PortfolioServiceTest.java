@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
+import java.util.Arrays;
 
 @SpringBootTest
 @Sql(scripts = "classpath:db/populateH2.sql")
@@ -20,12 +20,12 @@ class PortfolioServiceTest extends AbstractTest {
     @Test
     @Transactional
     void getAllPortfolios() {
-        Assertions.assertIterableEquals(portfolioService.getAll(), Collections.singletonList(portfolio));
+        Assertions.assertIterableEquals(portfolioService.getAll(), Arrays.asList(portfolio_1, portfolio_2));
     }
 
     @Test
     @Transactional
     void getPortfolioById() {
-        Assertions.assertEquals(portfolioService.getById(portfolio.getId()), portfolio);
+        Assertions.assertEquals(portfolioService.getById(portfolio_1.getId()), portfolio_1);
     }
 }

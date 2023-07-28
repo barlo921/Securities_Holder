@@ -9,4 +9,5 @@ import java.util.Optional;
 public interface SecurityRepository extends JpaRepository<Security, Long> {
     List<Security> findByPortfolioId(Long id);
     Optional<Security> findByPortfolioIdAndName(Long id, String name);
+    List<Security> findByName(String name);
 }

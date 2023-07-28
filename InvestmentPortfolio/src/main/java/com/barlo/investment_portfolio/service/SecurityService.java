@@ -18,19 +18,25 @@ public class SecurityService {
 
     public List<Security> getAll() {
         List<Security> securityList = securityRepository.findAll();
-        log.info("Finding all securities. Results: {}", securityList);
-        return securityList;
+        StringBuilder logMessage = new StringBuilder("Finding all securities; Results: ");
+        return ServiceUtils.checkListIsPresent(securityList, logMessage);
     }
 
     public List<Security> getAllForPortfolio(Long id) {
         List<Security> securityList = securityRepository.findByPortfolioId(id);
-        log.info("Finding all securities with portfolio id: {}. Results: {}", id, securityList);
-        return securityList;
+        StringBuilder logMessage = new StringBuilder("Finding all securities with portfolio id: " + id + "; Results: ");
+        return ServiceUtils.checkListIsPresent(securityList, logMessage);
     }
 
-    public Optional<Security> findByNameForPortfolio(Long id, String name) {
+    public List<Security> getAllByName(String name) {
+        List<Security> securityList = securityRepository.findByName(name);
+        StringBuilder logMessage = new StringBuilder("Finding all securities with portfolio name: " + name + "; Results: ");
+        return ServiceUtils.checkListIsPresent(securityList, logMessage);
+    }
+
+    public Security getByNameForPortfolio(Long id, String name) {
         Optional<Security> security = securityRepository.findByPortfolioIdAndName(id, name);
-        log.info("Finding security with portfolio id: {}, and name: {}. Results: {} ", id, name, security);
-        return security;
+        StringBuilder logMessage = new StringBuilder("Finding security with portfolio id: " + id + "; Results: ");
+        return ServiceUtils.checkIsPresent(security, logMessage);
     }
 }

@@ -3,6 +3,7 @@ package com.barlo.investment_portfolio.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 
 import javax.persistence.*;
@@ -12,22 +13,10 @@ import java.util.Objects;
 
 @Data
 @Entity
-@Builder
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Security {
-
-    @Id
-    @SequenceGenerator(
-            name = "securities_id_sequence",
-            sequenceName = "securities_id_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "securities_id_sequence"
-    )
-    private Long id;
+public class Security extends AbstractBaseEntity {
 
     private String name;
 

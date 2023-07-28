@@ -23,7 +23,7 @@ public class TestResults implements BeforeTestExecutionCallback, AfterTestExecut
         long startTime = getStore(context).remove(START_TIME, long.class);
         long duration = System.currentTimeMillis() - startTime;
 
-        String result = String.format("\n%-30s %7d %10s", testMethod.getName(), duration, !testResults ? "SUCCESS" : "FAILED");
+        String result = String.format("\n%-37s %7d %10s", testMethod.getName(), duration, !testResults ? "SUCCESS" : "FAILED");
         RESULTS.append(result);
 
         log.info(result + " ms\n");
@@ -31,11 +31,11 @@ public class TestResults implements BeforeTestExecutionCallback, AfterTestExecut
 
     @Override
     public void afterAll(ExtensionContext extensionContext) throws Exception {
-        log.info("\n--------------------------------------------------" +
-                "\nTest                      Duration, ms     Result" +
-                "\n--------------------------------------------------" +
+        log.info("\n---------------------------------------------------------" +
+                "\nTest                              Duration, ms    Result" +
+                "\n---------------------------------------------------------" +
                 RESULTS +
-                "\n--------------------------------------------------");
+                "\n---------------------------------------------------------");
     }
 
     private ExtensionContext.Store getStore(ExtensionContext context) {

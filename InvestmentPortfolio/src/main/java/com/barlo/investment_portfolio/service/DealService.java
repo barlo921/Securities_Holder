@@ -18,13 +18,19 @@ public class DealService {
 
     public List<Deal> getAll() {
         List<Deal> dealList = dealRepository.findAll();
-        log.info("Finding all deals. Results: {}", dealList);
-        return dealList;
+        StringBuilder logMessage = new StringBuilder("Finding all deals; Results: ");
+        return ServiceUtils.checkListIsPresent(dealList, logMessage);
     }
 
-    public Optional<List<Deal>> getAllForSecurityById(Long id) {
-        Optional<List<Deal>> dealList = dealRepository.findAllBySecurityId(id);
-        log.info("Finding all deals with security id: {}. Results: {}", id, dealList);
-        return dealList;
+    public Deal getById(Long id) {
+        Optional<Deal> deal = dealRepository.findById(id);
+        StringBuilder logMessage = new StringBuilder("Finding deal with id: " + id + "; Results: ");
+        return ServiceUtils.checkIsPresent(deal, logMessage);
+    }
+
+    public List<Deal> getAllForSecurityById(Long id) {
+        List<Deal> dealList = dealRepository.findAllBySecurityId(id);
+        StringBuilder logMessage = new StringBuilder("Finding all deals with security id: " + id + "; Results: ");
+        return ServiceUtils.checkListIsPresent(dealList, logMessage);
     }
 }

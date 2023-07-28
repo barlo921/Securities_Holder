@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,22 +13,11 @@ import java.util.Objects;
 
 @Data
 @Entity
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Deal {
+public class Deal extends AbstractBaseEntity {
 
-    @Id
-    @SequenceGenerator(
-            name = "securities_id_sequence",
-            sequenceName = "securities_id_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "securities_id_sequence"
-    )
-    private Long id;
     private LocalDateTime dateTime;
     private float price;
     private int quantity;
