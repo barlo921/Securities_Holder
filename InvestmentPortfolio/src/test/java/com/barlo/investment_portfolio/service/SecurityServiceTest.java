@@ -56,7 +56,7 @@ class SecurityServiceTest extends AbstractTest {
 
     @Test
     @Transactional
-    void getAllByName() {
+    void getSecuritiesAllByName() {
         Assertions.assertIterableEquals(securityService.getAllByName(security_1.getName()), Arrays.asList(security_1, security_2));
     }
 }

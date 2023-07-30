@@ -56,4 +56,11 @@ public class PortfolioService {
         return portfolioRepository.save(portfolio);
     }
 
+    public void delete(Long id) {
+        StringBuilder logMessage = new StringBuilder("Check portfolio with id: " + id + "; Result: ");
+        ServiceUtils.checkIsPresent(portfolioRepository.findById(id), logMessage);
+        log.info("Deleting portfolio with id: {}", id);
+        portfolioRepository.deleteById(id);
+    }
+
 }

@@ -26,12 +26,12 @@ class DealServiceTest extends AbstractTest{
     }
 
     @Test
-    void getById() {
+    void getDealById() {
         Assertions.assertEquals(dealService.getById(5L), deal_1);
     }
 
     @Test
-    void getByIdNoSuchElement() {
+    void getDealByIdNoSuchElement() {
         Assertions.assertThrows(NotFoundException.class, () -> {
             dealService.getById(8L);
         });
@@ -40,7 +40,7 @@ class DealServiceTest extends AbstractTest{
 
     @Test
     @Transactional
-    void getAllDealsForSecurityById() {
+    void getDealAllDealsForSecurityById() {
         Assertions.assertIterableEquals(dealService.getAllForSecurityById(deal_1.getSecurity().getId()), Arrays.asList(deal_1, deal_2));
     }
 
